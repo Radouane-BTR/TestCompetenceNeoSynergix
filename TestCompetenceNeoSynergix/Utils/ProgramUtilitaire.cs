@@ -67,7 +67,7 @@ namespace TestCompetenceNeoSynergix.Utils
                     if (Quantite < 1)
                     {
                         IsValid = false;
-                        Console.WriteLine("Quantite non valide...");
+                        Console.WriteLine("Quantitée non valide...");
                     }
                     else
                         IsValid = true;

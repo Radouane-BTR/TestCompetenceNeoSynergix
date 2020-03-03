@@ -8,10 +8,11 @@ namespace TestCompetenceNeoSynergix.Models
     public class Commande
     {
         public Client client;
-        public IList<Produit> Produits { get;set;}
+        public IList<Produit> Produits { get; set; }
 
         public Commande()
         {
+            Produits = new List<Produit>();
         }
 
         public void AfficherCommande()
@@ -41,8 +42,12 @@ namespace TestCompetenceNeoSynergix.Models
 
         public void AjouterProduit(Produit p)
         {
-            //if (!IsProduitExist(p))
                 this.Produits.Add(p);
+        }
+
+        public void SupprimerProduit(Produit p)
+        {
+            this.Produits.Remove(p);
         }
         public bool IsProduitExist(Produit p) {
             if (this.Produits.Contains(p))

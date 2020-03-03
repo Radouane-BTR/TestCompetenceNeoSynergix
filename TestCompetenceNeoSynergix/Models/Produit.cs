@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace TestCompetenceNeoSynergix.Models
 {
-    public class Produit
+    public class Produit : IEquatable<Produit>
     {
         public int Numero { get; set; }
         public string Description { get; set; }
@@ -19,6 +21,19 @@ namespace TestCompetenceNeoSynergix.Models
 
         public Produit()
         {
+        }
+
+        public override string ToString()
+        {
+            return Numero+" - "+Description + " - " +Prix + " - " +Quantite;
+        }
+
+        public bool Equals(Produit other)
+        {
+            if (other == null) return false;
+            Produit objAsPart = other as Produit;
+            if (objAsPart == null) return false;
+            else return Equals(objAsPart);
         }
     }
 }

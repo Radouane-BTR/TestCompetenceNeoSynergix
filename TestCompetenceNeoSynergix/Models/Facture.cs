@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using ConsoleTables; // il faut ajouter un package NuGet "ConsoleTables"
 
 namespace TestCompetenceNeoSynergix.Models
@@ -25,21 +26,24 @@ namespace TestCompetenceNeoSynergix.Models
             double r=0;
             foreach(Produit p in Commande.Produits)
             {
-                r += (p.Prix * p.Quantite);
+                r += p.Prix * p.Quantite;
             }
-            return r;
+            return Math.Round(r,2);
         }
 
         public double MontantAvecTaxes()
         {
+            NumberFormatInfo setPrecision = new NumberFormatInfo();
+            setPrecision.NumberDecimalDigits = 2;
+
             double MontantTPS = MontantHorsTaxes() * TPS;
             double MontantTVQ = MontantHorsTaxes() * TVQ;
-            return MontantHorsTaxes() + MontantTPS + MontantTVQ;
+            return Math.Round(MontantHorsTaxes() + MontantTPS + MontantTVQ,2);
         }
 
         public double TotalTaxes()
         {
-            return MontantHorsTaxes() - MontantHorsTaxes();
+            return Math.Round(MontantAvecTaxes() - MontantHorsTaxes(),2);
         }
 
         public void AfficherFacture()

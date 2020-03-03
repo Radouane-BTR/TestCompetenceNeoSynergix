@@ -34,7 +34,6 @@ namespace TestCompetenceNeoSynergix.Models
             Console.WriteLine( table);
         }
 
-
         public void ReduireQuantiteProduit( int numeroProduit, int quantite)
         {
             Produit p = GetProduit(numeroProduit);
