@@ -7,37 +7,61 @@ namespace TestCompetenceNeoSynergix.Models
     {
         readonly double TPS = 0.05;
         readonly double TVQ = 0.085;
-        public double MontantHorsTaxes { get; private set; }
-        public double MontantAvecTaxes { get; private set; }
-        public double TotalTaxes { get; private set; }
+        public Commande Commande;
+        public Client Client;
 
-        public void CalculerMontantHorsTaxes(Commande commande)
+        public Facture(Commande commande, Client client)
+        {
+            this.Commande = commande;
+            this.Client = client;
+        }
+
+        public Facture()
+        {
+        }
+
+        public double MontantHorsTaxes()
         {
             double r=0;
-            foreach(Produit p in commande.Produits)
+            foreach(Produit p in Commande.Produits)
             {
                 r += (p.Prix * p.Quantite);
             }
-            MontantHorsTaxes = r;
+            return r;
         }
 
-        public void CalculerMontantAvecTaxes()
+        public double MontantAvecTaxes()
         {
-            double MontantTPS = MontantHorsTaxes * TPS;
-            double MontantTVQ = MontantHorsTaxes * TVQ;
-            MontantAvecTaxes = MontantHorsTaxes + MontantTPS + MontantTVQ;
+            double MontantTPS = MontantHorsTaxes() * TPS;
+            double MontantTVQ = MontantHorsTaxes() * TVQ;
+            return MontantHorsTaxes() + MontantTPS + MontantTVQ;
         }
 
-        public void CalculerTotalTaxes()
+        public double TotalTaxes()
         {
-            TotalTaxes = MontantAvecTaxes - MontantHorsTaxes;
+            return MontantHorsTaxes() - MontantHorsTaxes();
         }
 
         public void AfficherFacture()
         {
             var table = new ConsoleTable("Total Hors Taxes", "Total des taxes", "Total avec taxes");
-            table.AddRow(MontantHorsTaxes, TotalTaxes, MontantAvecTaxes);
+            table.AddRow(MontantHorsTaxes(), TotalTaxes(), MontantAvecTaxes());
             Console.WriteLine(table);
+        }
+
+        public bool PayerFacture()
+        {
+            if (Client.MontantDepart > MontantAvecTaxes())
+            {
+                Client.MontantDepart -= MontantAvecTaxes();
+                return true;
+            }
+            else
+                return false;
+        }
+        public double MontantRestantDuDepenses()
+        {
+            return Client.MontantDepart - MontantAvecTaxes();
         }
     }
 }

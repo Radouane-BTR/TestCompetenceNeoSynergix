@@ -40,7 +40,12 @@ namespace TestCompetenceNeoSynergix.Utils
                 Console.Write(" Veuillez saisir le numéro de produit : ");
                 string saisie = Console.ReadLine();
                 if (int.TryParse(saisie, out NumeroProduit))
-                    IsValid = true;
+                    if (NumeroProduit < 0) {
+                        IsValid = false;
+                        Console.WriteLine("le numero doit être positive");
+                    }
+                    else
+                        IsValid = true;
                 else
                 {
                     IsValid = false;
@@ -59,7 +64,13 @@ namespace TestCompetenceNeoSynergix.Utils
                 Console.Write("Veuillez saisir la quantitée commander : ");
                 string saisie = Console.ReadLine();
                 if (int.TryParse(saisie, out Quantite))
-                    IsValid = true;
+                    if (Quantite < 1)
+                    {
+                        IsValid = false;
+                        Console.WriteLine("Quantite non valide...");
+                    }
+                    else
+                        IsValid = true;
                 else
                 {
                     IsValid = false;

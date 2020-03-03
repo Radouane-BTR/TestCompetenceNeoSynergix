@@ -12,12 +12,17 @@ namespace TestCompetenceNeoSynergix
     {
         static void Main(string[] args)
         {
-            Restaurant restaurant = new Restaurant();
+            string NOMRESTAURANT = " Belle bouchée";
+            Menu menu = new Menu();
+            Restaurant restaurant = new Restaurant(NOMRESTAURANT, menu);
             Client client = new Client();
-            Commande commande= new Commande();
-            commande.Produits = new List<Produit>();
+            Commande commande = new Commande{ Produits = new List<Produit>() };
+            Produit produitCommander = new Produit();
+            //Produit p = new Produit();
             Facture facture;
+
             Console.WriteLine("Bienvenue au restaurant {0}{1}", Restaurant.GetNom(), Environment.NewLine);
+
             bool optionIsValid = false;
             while (!optionIsValid)
             {
@@ -32,40 +37,46 @@ namespace TestCompetenceNeoSynergix
                             Environment.Exit(0);
                             break;
                         case 1: // Afficher Le menu
-                            Console.WriteLine(restaurant.MenuRestaurant());
+                            restaurant.AfficherMenu();
                             break; 
                         case 2: // Ajouter un produit à la commande
                             bool IsExist = false;
                             while (!IsExist)
                             {
-                                Console.WriteLine(restaurant.MenuRestaurant());
+                                restaurant.AfficherMenu();
                                 int numeroProduit = ProgramUtilitaire.SaisirNumeroProduit();
                                 Produit p = restaurant.GetProduit(numeroProduit);
                                 if (p is null)
                                 {
-                                    Console.WriteLine("un produit avec le numero {0} est introuvable", numeroProduit);
+                                    Console.WriteLine("le produit avec le numero {0} est introuvable", numeroProduit);
                                     IsExist = false;
                                 }
                                 else {
+                                    //commande = new Commande();
                                     commande.client = client;
-                                    commande.AjouterProduit(p);
+                                    produitCommander.Numero = p.Numero;
+                                    produitCommander.Description = p.Description;
+                                    produitCommander.Quantite = 0;
+
+                                    commande.AjouterProduit(produitCommander);
+
                                     bool IsValidQuantite = false;
                                     while (!IsValidQuantite)
                                     {
                                         int Quantite = ProgramUtilitaire.SaisirQuantite();
                                         if (p.Quantite < Quantite)
                                         {
-                                            Console.WriteLine("Pas assez de quantite !!!");
+                                            Console.WriteLine("Pas assez de quantite / (0 : Pour annuler) ...");
                                             IsValidQuantite = false;
                                         }
                                         else
                                         {
-                                            restaurant.ReduireQuantiteProduit(p, Quantite);
-                                            commande.AjouterQuantiteCommander(Quantite, p);
+                                            restaurant.ReduireQuantiteProduit(p.Numero, Quantite);
+                                            commande.AjouterQuantiteCommander(Quantite, produitCommander.Numero);
                                             IsValidQuantite = true;
                                         }
                                     }
-                                    Console.WriteLine(restaurant.MenuRestaurant());
+                                    restaurant.AfficherMenu();
                                     IsExist = true;
                                 }
                             }
@@ -74,7 +85,7 @@ namespace TestCompetenceNeoSynergix
                         case 3: // Supprimer un produit de la commande
                             if (commande.Produits.Any()) { 
                                 Console.WriteLine("Voici votre commande {0}", Environment.NewLine);
-                                Console.WriteLine(commande.DetailCommande());
+                                commande.AfficherCommande();
                                 bool IfExist = false;
                                 while (!IfExist)
                                 {
@@ -83,12 +94,12 @@ namespace TestCompetenceNeoSynergix
                                     if (p is null)
                                     {
                                         Console.WriteLine("Votre commande ne contient aucun produit avec le numero {0}", n);
-                                        Console.WriteLine(commande.DetailCommande());
+                                        commande.AfficherCommande();
                                         IfExist = false;
                                     }
                                     else {
-                                        restaurant.AugmenterQuantiteProduit(p, p.Quantite);
                                         commande.Produits.Remove(p);
+                                        restaurant.AugmenterQuantiteProduit(p.Numero, p.Quantite);
                                         IfExist = true;
                                     }
                                 }
@@ -97,29 +108,30 @@ namespace TestCompetenceNeoSynergix
 
                             break;
                         case 4: // Payer la facture
-                            facture = new Facture();
-                            facture.CalculerMontantHorsTaxes(commande);
-                            facture.CalculerMontantAvecTaxes();
-                            facture.CalculerTotalTaxes();
+                            facture = new Facture(commande, client);
+                            //facture.MontantHorsTaxes();
+                            //facture.MontantAvecTaxes();
+                            //facture.TotalTaxes();
                             facture.AfficherFacture();
-                            if (client.PayerFacture(facture))
+                            if (facture.PayerFacture())
                             {
                                 commande.Produits.Clear();
                                 Console.WriteLine("Votre solde actuel est de : {0} $", client.MontantDepart);
                             }
                             else {
-                                Console.WriteLine("Votre Facture dépasse votre montant de dépense avec {0} $", client.RetournerEcartDepense(facture));
+                                Console.WriteLine("Votre Facture dépasse votre montant de dépense avec {0} $", facture.MontantRestantDuDepenses());
                             }
                             break;
                         case 5: // Afficher le solde de la facture
-                            facture = new Facture();
-                            facture.CalculerMontantHorsTaxes(commande);
-                            facture.CalculerMontantAvecTaxes();
-                            facture.CalculerTotalTaxes();
+                            commande.AfficherCommande();
+                            facture = new Facture(commande,client);
+                            //facture.MontantHorsTaxes();
+                            //facture.MontantAvecTaxes();
+                            //facture.TotalTaxes();
                             facture.AfficherFacture();
                             break;
                         case 6: // Afficher l'inventaire de la restaurant
-                            Console.WriteLine(restaurant.MenuRestaurant());
+                            restaurant.AfficherMenu();
                             break;
                         case 7: // Aide
                             ProgramUtilitaire.AfficherAide();

@@ -5,21 +5,13 @@ namespace TestCompetenceNeoSynergix.Models
     {
         public double MontantDepart=100;
 
-        public void ReduireMontantDepart(double mnt) {
-            MontantDepart -= mnt;
+        public Client(double montantDepart)
+        {
+            MontantDepart = montantDepart;
         }
 
-        public bool PayerFacture(Facture f) {
-            if (MontantDepart > f.MontantAvecTaxes)
-            {
-                MontantDepart -= f.MontantAvecTaxes;
-                return true;
-            }
-            else
-                return false;
-        }
-        public double RetournerEcartDepense(Facture f) {
-            return MontantDepart - f.MontantAvecTaxes;
+        public Client()
+        {
         }
     }
 }

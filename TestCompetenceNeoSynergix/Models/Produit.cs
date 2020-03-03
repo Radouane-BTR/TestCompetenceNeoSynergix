@@ -16,5 +16,9 @@ namespace TestCompetenceNeoSynergix.Models
         {
             this.Quantite += q;
         }
+
+        public Produit()
+        {
+        }
     }
 }
