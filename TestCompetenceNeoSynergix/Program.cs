@@ -32,13 +32,13 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
                             Environment.Exit(0);
                             break;
                         case 1: // Afficher Le menu
-                            restaurant.AfficherMenu();
+                            restaurant.Menu.AfficherMenu();
                             break;
                         case 2: // Ajouter un produit à la commande
                             bool IsExist = false;
                             while (!IsExist)
                             {
-                                restaurant.AfficherMenu();
+                                restaurant.Menu.AfficherMenu();
                                 int numeroProduit = ProgramUtilitaire.SaisirNumeroProduit();
                                 Produit p = restaurant.GetProduit(numeroProduit);
                                 if (p is null)
@@ -64,7 +64,7 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
                                             commande.GetProduitCommander(p.Numero).Quantite += Quantite;
                                             IsValidQuantite = true;
                                         }
-                                        restaurant.AfficherMenu();
+                                        restaurant.Menu.AfficherMenu();
                                         IsExist = true;
                                     }
                                 }
@@ -95,7 +95,7 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
                                             IsValidQuantite = true;
                                         }
                                     }
-                                    restaurant.AfficherMenu();
+                                    restaurant.Menu.AfficherMenu();
                                     IsExist = true;
                                 }
                             }
@@ -144,7 +144,7 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
                                 else
                                 {
                                     Console.WriteLine("Vous avez dépasser votre montant de dépense avec {0} $\n" +
-                                    " Merci de modifier votre commande\n", -facture.MontantRestantDuDepenses());
+                                    " Merci de modifier votre commande\n", -facture.CalculerMontantRestantDuDepenses());
                                 }
                             }
                             else {
@@ -159,7 +159,7 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
                             Console.WriteLine("Votre solde actuel est de : {0} $", client.MontantDepart);
                             break;
                         case 6: // Afficher l'inventaire de la restaurant
-                            restaurant.AfficherMenu();
+                            restaurant.AfficherInventaire();
                             break;
                         case 7: // Aide
                             ProgramUtilitaire.AfficherAide();

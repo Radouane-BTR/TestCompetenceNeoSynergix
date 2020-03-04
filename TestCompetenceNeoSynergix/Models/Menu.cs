@@ -20,14 +20,14 @@ namespace TestCompetenceNeoSynergix.Models
             };
         }
 
-        public ConsoleTable AfficherMenu()
+        public void AfficherMenu()
         {
             var table = new ConsoleTable("Numéro", "Description", "Prix", "Quantité");
             foreach (Produit p in this.Produits)
             {
                 table.AddRow(p.Numero, p.Description, p.Prix, p.Quantite);
             }
-            return table;
+            Console.WriteLine(table);
         }
     }
 }

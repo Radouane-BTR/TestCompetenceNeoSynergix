@@ -23,13 +23,13 @@ namespace TestCompetenceNeoSynergix.Models
             return Menu;
         }
 
-        public void AfficherMenu() {
-            var table = new ConsoleTable("Numéro", "Description", "Prix", "Quantité");
+        public void AfficherInventaire() {
+            var table = new ConsoleTable("Numéro", "Description", "Quantités en stock");
             foreach (Produit p in this.Menu.Produits)
             {
-                table.AddRow(p.Numero, p.Description, p.Prix, p.Quantite);
+                table.AddRow(p.Numero, p.Description, p.Quantite);
             }
-            Console.WriteLine( table);
+            Console.WriteLine(table);
         }
 
         public void ReduireQuantiteProduit( int numeroProduit, int quantite)

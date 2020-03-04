@@ -21,7 +21,7 @@ namespace TestCompetenceNeoSynergix.Models
         {
         }
 
-        public double MontantHorsTaxes()
+        public double CalculerMontantHorsTaxes()
         {
             double r=0;
             foreach(Produit p in Commande.Produits)
@@ -31,41 +31,41 @@ namespace TestCompetenceNeoSynergix.Models
             return Math.Round(r,2);
         }
 
-        public double MontantAvecTaxes()
+        public double CalculerMontantAvecTaxes()
         {
             NumberFormatInfo setPrecision = new NumberFormatInfo();
             setPrecision.NumberDecimalDigits = 2;
 
-            double MontantTPS = MontantHorsTaxes() * TPS;
-            double MontantTVQ = MontantHorsTaxes() * TVQ;
-            return Math.Round(MontantHorsTaxes() + MontantTPS + MontantTVQ,2);
+            double MontantTPS = CalculerMontantHorsTaxes() * TPS;
+            double MontantTVQ = CalculerMontantHorsTaxes() * TVQ;
+            return Math.Round(CalculerMontantHorsTaxes() + MontantTPS + MontantTVQ,2);
         }
 
-        public double TotalTaxes()
+        public double CalculerTotalTaxes()
         {
-            return Math.Round(MontantAvecTaxes() - MontantHorsTaxes(),2);
+            return Math.Round(CalculerMontantAvecTaxes() - CalculerMontantHorsTaxes(),2);
         }
 
         public void AfficherFacture()
         {
             var table = new ConsoleTable("Total Hors Taxes", "Total des taxes", "Total avec taxes");
-            table.AddRow(MontantHorsTaxes(), TotalTaxes(), MontantAvecTaxes());
+            table.AddRow(CalculerMontantHorsTaxes(), CalculerTotalTaxes(), CalculerMontantAvecTaxes());
             Console.WriteLine(table);
         }
 
         public bool PayerFacture()
         {
-            if (Client.MontantDepart > MontantAvecTaxes())
+            if (Client.MontantDepart > CalculerMontantAvecTaxes())
             {
-                Client.MontantDepart -= MontantAvecTaxes();
+                Client.MontantDepart -= CalculerMontantAvecTaxes();
                 return true;
             }
             else
                 return false;
         }
-        public double MontantRestantDuDepenses()
+        public double CalculerMontantRestantDuDepenses()
         {
-            return Math.Round(Client.MontantDepart - MontantAvecTaxes(),2);
+            return Math.Round(Client.MontantDepart - CalculerMontantAvecTaxes(),2);
         }
     }
 }

@@ -3,7 +3,7 @@ namespace TestCompetenceNeoSynergix.Models
 {
     public class Client
     {
-        public double MontantDepart=100;
+        public double MontantDepart { get; set; }
 
         public Client(double montantDepart)
         {
@@ -12,6 +12,7 @@ namespace TestCompetenceNeoSynergix.Models
 
         public Client()
         {
+            MontantDepart = 100;
         }
     }
 }
