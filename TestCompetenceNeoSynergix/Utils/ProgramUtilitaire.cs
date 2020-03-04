@@ -7,14 +7,14 @@ namespace TestCompetenceNeoSynergix.Utils
     {
         public static void AfficherMenuProgram() {
             Console.WriteLine("Veuillez sélectioner une option {0}", Environment.NewLine);
-            Console.WriteLine("1. Afficher Le menu");
-            Console.WriteLine("2. Ajouter un produit à la commande");
-            Console.WriteLine("3. Supprimer un produit de la commande");
-            Console.WriteLine("4. Payer la facture");
-            Console.WriteLine("5. Afficher le solde  de la facture");
-            Console.WriteLine("6. Afficher l'inventaire de la restaurant");
-            Console.WriteLine("7. Aide");
-            Console.WriteLine("8. Quitter {0}", Environment.NewLine);
+            Console.WriteLine("\t1. Afficher Le menu");
+            Console.WriteLine("\t2. Ajouter un produit à la commande");
+            Console.WriteLine("\t3. Supprimer un produit de la commande");
+            Console.WriteLine("\t4. Payer la facture");
+            Console.WriteLine("\t5. Afficher le solde  de la facture");
+            Console.WriteLine("\t6. Afficher l'inventaire de la restaurant");
+            Console.WriteLine("\t7. Aide");
+            Console.WriteLine("\t8. Quitter {0}", Environment.NewLine);
         }
         public static void AfficherAide()
         {

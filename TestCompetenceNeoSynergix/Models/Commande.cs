@@ -8,12 +8,14 @@ namespace TestCompetenceNeoSynergix.Models
     public class Commande
     {
         public Client client;
-        public IList<Produit> Produits { get; set; }
+        public List<Produit> Produits { get; set; }
 
-        public Commande()
-        {
-            Produits = new List<Produit>();
-        }
+        //public Commande()
+        //{
+        //    Produits = new List<Produit> ();
+        //}
+
+
 
         public void AfficherCommande()
         {
@@ -25,9 +27,17 @@ namespace TestCompetenceNeoSynergix.Models
             Console.WriteLine(table);
         }
 
-        public void AjouterQuantiteCommander(int quantite, int numeroProduit) {
-            Produit p = GetProduitCommander(numeroProduit);
-            p.Quantite += quantite;
+        //public void AjouterQuantiteCommander(int quantite, int numeroProduit) {
+        //    Produit p = GetProduitCommander(numeroProduit);
+        //    p.Quantite += quantite;
+        //}
+
+
+        public void AjouterQuantiteCommander(int quantite, int numeroProduit)
+        {
+            (from m in Produits
+             where m.Numero == numeroProduit
+             select m).FirstOrDefault().Quantite += quantite;
         }
 
         public Produit GetProduitCommander(int v)
@@ -35,7 +45,7 @@ namespace TestCompetenceNeoSynergix.Models
             return Produits.Where(s => s.Numero == v).FirstOrDefault();
         }
 
-        public IList<Produit> GetProduitsCommander()
+        public List<Produit> GetAllProduitsCommander()
         {
             return Produits;
         }
@@ -47,6 +57,7 @@ namespace TestCompetenceNeoSynergix.Models
 
         public void SupprimerProduit(Produit p)
         {
+            //Produit elementToDeleted = Produits.Where(x => x.Numero == p.Numero).FirstOrDefault();
             this.Produits.Remove(p);
         }
         public bool IsProduitExist(Produit p) {

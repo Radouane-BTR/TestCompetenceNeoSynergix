@@ -65,7 +65,7 @@ namespace TestCompetenceNeoSynergix.Models
         }
         public double MontantRestantDuDepenses()
         {
-            return Client.MontantDepart - MontantAvecTaxes();
+            return Math.Round(Client.MontantDepart - MontantAvecTaxes(),2);
         }
     }
 }
