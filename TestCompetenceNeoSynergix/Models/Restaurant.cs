@@ -8,9 +8,7 @@ namespace TestCompetenceNeoSynergix.Models
     public class Restaurant
     {
         public static string Nom; 
-        //public IList<Produit> Menu;
         public Menu Menu;
-
 
         public Restaurant(string nom, Menu menu) {
             Nom = nom;

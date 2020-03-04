@@ -10,13 +10,6 @@ namespace TestCompetenceNeoSynergix.Models
         public Client client;
         public List<Produit> Produits { get; set; }
 
-        //public Commande()
-        //{
-        //    Produits = new List<Produit> ();
-        //}
-
-
-
         public void AfficherCommande()
         {
             var table = new ConsoleTable("Numéro", "Description","Quantité");
@@ -26,12 +19,6 @@ namespace TestCompetenceNeoSynergix.Models
             }
             Console.WriteLine(table);
         }
-
-        //public void AjouterQuantiteCommander(int quantite, int numeroProduit) {
-        //    Produit p = GetProduitCommander(numeroProduit);
-        //    p.Quantite += quantite;
-        //}
-
 
         public void AjouterQuantiteCommander(int quantite, int numeroProduit)
         {
@@ -57,7 +44,6 @@ namespace TestCompetenceNeoSynergix.Models
 
         public void SupprimerProduit(Produit p)
         {
-            //Produit elementToDeleted = Produits.Where(x => x.Numero == p.Numero).FirstOrDefault();
             this.Produits.Remove(p);
         }
         public bool IsProduitExist(Produit p) {

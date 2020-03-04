@@ -6,7 +6,7 @@ namespace TestCompetenceNeoSynergix.Models
 {
     public class Menu
     {
-        public IList<Produit> Produits{ get; set; }
+        public List<Produit> Produits{ get; set; }
 
         public Menu()
         {

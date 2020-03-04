@@ -1,5 +1,4 @@
 ﻿using System;using System.Collections.Generic;
-using ConsoleTables;
 using TestCompetenceNeoSynergix.Models;
 using TestCompetenceNeoSynergix.Utils;
 using System.Linq;
@@ -13,11 +12,6 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
             Commande commande = new Commande();
             commande.Produits = new List<Produit>();
 
-            //{
-            //    Produits = new List<Produit>()
-            //};
-
-            //Produit produitCommander, p = new Produit() ;
             Facture facture;
 
             Console.WriteLine("Bienvenue au restaurant {0}{1}", Restaurant.GetNom(), Environment.NewLine);
@@ -25,8 +19,9 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
             bool optionIsValid = false;
             while (!optionIsValid)
             {
+                Console.Write(Environment.NewLine);
                 ProgramUtilitaire.AfficherMenuProgram();
-                Console.Write("Options numéro : ");
+                Console.Write("Option numéro : ");
                 var valueSelected = Console.ReadLine();
                 if (int.TryParse(valueSelected, out int MenuSelection))
                 {
@@ -125,9 +120,8 @@ namespace TestCompetenceNeoSynergix{    class Program    {        static voi
                                     }
                                     else
                                     {
-
                                         restaurant.AugmenterQuantiteProduit(p.Numero, p.Quantite);
-                                        commande.Produits.Remove(p);
+                                        commande.SupprimerProduit(p);
                                         Console.WriteLine("\nProduit dont le numéro {1} est supprimer {0}",Environment.NewLine,p.Numero);
                                         IfExist = true;
                                     }
